@@ -1,0 +1,5 @@
+{
+  "name": "GeritAI",
+  "description": "A high-performance, AI-enhanced code review dashboard. GeritAI provides a modern interface for managing patches, viewing diffs, and leveraging Gemini for automated code analysis and summarization.",
+  "requestFramePermissions": []
+}
