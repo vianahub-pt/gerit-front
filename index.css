@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F3F4F6; /* gray-100 */
+}
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB; /* gray-300 */
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF; /* gray-400 */
+}
+
+/* --- MODAL OVERLAY PATCH --- */
+
+/* PATCH 1 — BACKDROP */
+.modal-backdrop,
+[data-dialog-overlay],
+[data-overlay],
+.dialog-backdrop,
+.backdrop,
+.overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0,0,0,0.65) !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  transition: opacity .2s ease-in-out;
+  backdrop-filter: blur(2px);
+}
+
+.modal-backdrop[hidden],
+[data-dialog-overlay][hidden],
+[data-overlay][hidden],
+.dialog-backdrop[aria-hidden="true"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* PATCH 2 — LAYOUT Z-INDEX FIX */
+/* When modal is open, force header and sidebar behind the backdrop */
+body.modal-open .app-header,
+body.modal-open .sidebar {
+  z-index: 0 !important;
+}
+
+/* PATCH 3 — SCROLL LOCK & MODAL CONTENT */
+body.modal-open,
+body[data-dialog-open="true"] {
+  overflow: hidden !important;
+}
+
+.modal, [data-dialog], .dialog-content, .modal-container {
+  position: relative;
+  z-index: 10001 !important;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+}
+
+/* Ensure toast is visible above modal */
+.toast-container {
+  z-index: 10002 !important;
+}
